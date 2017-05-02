@@ -37,6 +37,32 @@ namespace Qulix.Domain.Repository
             Execute(expression);
         }
 
+        public IEnumerable<Company> GetAll()
+        {
+            List<Company> companies = new List<Company>();
+            string expression = "SELECT * FROM Company";
+
+            using (var sqlConnection = new SqlConnection(connectionString))
+            {
+                sqlConnection.Open();
+                var command = new SqlCommand(expression, sqlConnection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while(reader.Read())
+                {
+                    companies.Add(new Company()
+                    {
+                        CompanyId = (int)reader["CompanyId"],
+                        Name = (string)reader["Name"],
+                        SizeCompany = (int)reader["SizeCompany"],
+                        OrganizationalForm = (string)reader["OrganizationalForm"]
+                    });
+                }
+            }
+
+            return companies;
+        }
+
         public void Execute(string expression)
         {
             using (var sqlConnection = new SqlConnection(connectionString))

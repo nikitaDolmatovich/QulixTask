@@ -38,6 +38,35 @@ namespace Qulix.Domain.Repository
             Execute(expression);
         }
 
+        public IEnumerable<Worker> GetAll()
+        {
+            List<Worker> workers = new List<Worker>();
+            string expression = "SELECT * FROM Worker";
+
+            using (var sqlConnection = new SqlConnection(connectionString))
+            {
+                sqlConnection.Open();
+                var command = new SqlCommand(expression, sqlConnection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while(reader.Read())
+                {
+                    workers.Add(new Worker()
+                    {
+                        WorkerId = (int)reader["WorkerId"],
+                        Name = (string)reader["Name"],
+                        Surname = (string)reader["Surname"],
+                        Patronymic = (string)reader["Patronymic"],
+                        DateRecruitment = (DateTime)reader["DateRecruitment"],
+                        Position = (string)reader["Position"],
+                        CompanyId = (int)reader["CompanyId"]
+                    });
+                }
+            }
+
+            return workers;
+        }
+
         public void Execute(string expression)
         {
             using (var sqlConnection = new SqlConnection(connectionString))

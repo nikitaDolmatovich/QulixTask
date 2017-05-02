@@ -13,5 +13,6 @@ namespace Qulix.Domain.Repository
         void Delete(int itemId);
         void Update(int itemId, T item);
         void Execute(string expression);
+        IEnumerable<T> GetAll();
     }
 }
