@@ -131,6 +131,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Angular\App.js" />
+    <Content Include="Angular\Controllers\Controllers.js" />
+    <Content Include="Angular\Services\Services.js" />
+    <Content Include="Angular\Views\Workers.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
