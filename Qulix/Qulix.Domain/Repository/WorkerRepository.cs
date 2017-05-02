@@ -38,7 +38,7 @@ namespace Qulix.Domain.Repository
             Execute(expression);
         }
 
-        private void Execute(string expression)
+        public void Execute(string expression)
         {
             using (var sqlConnection = new SqlConnection(connectionString))
             {
