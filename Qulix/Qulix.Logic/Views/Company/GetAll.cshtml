@@ -1,0 +1,30 @@
+﻿@model List<Qulix.Logic.Models.CompanyViewModel>
+@{
+    ViewBag.Title = "GetAll";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Identifier</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Size</th>
+            <th>Organizational Form</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var company in Model)
+        {
+            <tr>
+                <td>@company.CompanyId</td>
+                <td>@company.Name</td>
+                <td>@company.SizeCompany</td>
+                <td>@company.OrganizationalForm</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
