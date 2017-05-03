@@ -1,0 +1,38 @@
+﻿@model Qulix.Logic.Models.CompanyViewModel
+@{
+    ViewBag.Title = "Update";
+}
+
+<div class="panel">
+    <div class="panel-heading">
+        <h3>Update Company «@Model.Name»</h3>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        <div class="panel-body">
+            @Html.HiddenFor(m => m.CompanyId)
+            @foreach (var property in ViewData.ModelMetadata.Properties)
+            {
+                if (property.PropertyName != "CompanyId")
+                {
+                    <div class="form-group">
+                        <label>@(property.DisplayName ?? property.PropertyName)</label>
+                       
+                            @Html.TextBox(property.PropertyName, null,
+                                new { @class = "form-control" })
+                        
+                    </div>
+                }
+            }
+        </div>
+        <div class="panel-footer">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            @Html.ActionLink("Return to main page", "GetAll", null, new
+       {
+           @class = "btn btn-default"
+       })
+        </div>
+    }
+</div>
+

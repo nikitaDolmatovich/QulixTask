@@ -27,7 +27,12 @@ namespace Qulix.Logic.Models
         [Display(Name ="Position")]
         public string Position { get; set; }
 
-        [Display(Name ="CompanyId")]
+        [Display(Name ="CompanyName")]
+        public string CompanyName { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
         public int CompanyId { get; set; }
+
+        public CompanyViewModel Company { get; set; }
     }
 }

@@ -17,11 +17,11 @@ namespace Qulix.Domain.Repository
             this.connectionString = connectionString;
         }
 
-        public void Add(Worker item)
+        public void Add(Worker item, int id)
         {
             string expression = "INSERT INTO Worker(WorkerId, Name, Surname, Patronymic,DateRecruitment," +
                 "Position, CompanyId)VALUES" + $"('{item.WorkerId}', '{item.Name}','{item.Surname}','{item.Patronymic}'," +
-                $"'{item.DateRecruitment}', '{item.Position}', '{item.CompanyId}'";
+                $"'{item.DateRecruitment}', '{item.Position}', '{id}'";
             Execute(expression);
         }
 
@@ -89,6 +89,46 @@ namespace Qulix.Domain.Repository
                     CompanyId = (int)reader["CompanyId"]
                 };
             }
+        }
+
+        public int GetIdComapnyByName(string name)
+        {
+            string expression = $"SELECT CompanyId FROM Company WHERE Name = {name}";
+            int id = 0;
+
+            using (var sqlCOnnection = new SqlConnection(connectionString))
+            {
+                sqlCOnnection.Open();
+                var command = new SqlCommand(expression, sqlCOnnection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while(reader.Read())
+                {
+                    id = (int)reader["CompanyId"];
+                }
+            }
+
+            return id;
+        }
+
+        public string GetNameComapnyById(int id)
+        {
+            string expression = $"SELECT Name FROM Company WHERE CompanyId = {id}";
+            string name = null;
+
+            using (var sqlCOnnection = new SqlConnection(connectionString))
+            {
+                sqlCOnnection.Open();
+                var command = new SqlCommand(expression, sqlCOnnection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    name = (string)reader["Name"];
+                }
+            }
+
+            return name;
         }
 
         public void Execute(string expression)

@@ -1,0 +1,55 @@
+﻿@model Qulix.Logic.Models.CompanyViewModel
+@{
+    ViewBag.Title = "Add";
+}
+
+<div class="panel">
+    <div class="panel-heading">
+        <h3>Add Worker</h3>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        <div class="panel-body">
+            @Html.HiddenFor(m => m.CompanyId)
+            @foreach (var property in ViewData.ModelMetadata.Properties)
+            {
+                if (property.PropertyName != "CompanyId")
+                {
+                    if (property.PropertyName == "OrganizationalForm")
+                        {
+                            var selectList = new SelectList(
+                                   new List<SelectListItem>
+                                   {
+                                        new SelectListItem {Text = "OOO", Value = "OOO"},
+                                        new SelectListItem {Text = "ЗАО", Value = "ЗАО"},
+                                        new SelectListItem {Text =  "ОАО", Value="ОАО"}
+                                   }, "Value", "Text");
+
+                        @Html.DropDownListFor(m => m.OrganizationalForm, selectList, "-----", new { @class = "form-control" })
+                    }
+                    else
+                    {
+                    <div class="form-group">
+                        <label>@(property.DisplayName ?? property.PropertyName)</label>
+               
+                            @Html.TextBox(property.PropertyName, null,
+                                          new { @class = "form-control" })
+                        
+                    </div>
+                        }
+                    }
+            }
+        </div>
+        <div class="panel-footer">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            @Html.ActionLink("Return to main page", "GetAll", null, new
+       {
+           @class = "btn btn-default"
+       })
+        </div>
+    }
+</div>
+
+
+

@@ -8,23 +8,37 @@
         <tr>
             <th>Identifier</th>
             <th>Name</th>
-            <th>Surname</th>
             <th>Size</th>
             <th>Organizational Form</th>
+            <th>Delete</th>
+            <th>Edit</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var company in Model)
-        {
-            <tr>
-                <td>@company.CompanyId</td>
-                <td>@company.Name</td>
-                <td>@company.SizeCompany</td>
-                <td>@company.OrganizationalForm</td>
-            </tr>
-        }
+    @foreach (var company in Model)
+    {
+        <tr>
+            <td>@company.CompanyId</td>
+            <td>@company.Name</td>
+            <td>@company.SizeCompany</td>
+            <td>@company.OrganizationalForm</td>
+            <td>
+                @using (Html.BeginForm("Delete", "Company"))
+                {
+                    @Html.Hidden("CompanyId", @company.CompanyId)
+                    <input type="submit" class="btn btn-danger" value="Delete" />
+                }
+            </td>
+            <td>@Html.ActionLink("Update", "Update", new { company.CompanyId, @class = "btn btn-default" })</td>
+        </tr>
+        
+    }
     </tbody>
 </table>
+<div class="panel-footer">
+    @Html.ActionLink("Add company", "Add", null,
+            new { @class = "btn btn-default" })
+</div>
 
 
 

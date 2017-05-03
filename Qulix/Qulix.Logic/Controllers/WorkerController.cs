@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Qulix.Domain.Repository;
 using Qulix.Domain.Models;
 using Qulix.Logic.Models;
+using System.Text;
 
 namespace Qulix.Logic.Controllers
 {
@@ -26,9 +27,10 @@ namespace Qulix.Logic.Controllers
         {
             List<WorkerViewModel> workers = new List<WorkerViewModel>();
 
-            foreach(var worker in repo.GetAll())
+            foreach (var worker in repo.GetAll())
             {
-                workers.Add(CopyToViewModel(worker));
+                string name = repo.GetNameComapnyById(worker.CompanyId);
+                workers.Add(CopyToViewModel(worker,name));
             }
 
             return View(workers);
@@ -45,7 +47,9 @@ namespace Qulix.Logic.Controllers
         [HttpGet]
         public ActionResult Update(int workerId)
         {
-            WorkerViewModel worker = CopyToViewModel(repo.GetWorkerById(workerId));
+            Worker workers = repo.GetWorkerById(workerId);
+            string name = repo.GetNameComapnyById(workers.CompanyId);
+            WorkerViewModel worker = CopyToViewModel(repo.GetWorkerById(workerId),name);
 
             return View(worker);
         }
@@ -76,9 +80,8 @@ namespace Qulix.Logic.Controllers
                     Value = item.Name
                 });
             }
-
             ViewBag.Companies = items;
-            return View();
+            return View(items);
         }
 
         [HttpPost]
@@ -86,7 +89,8 @@ namespace Qulix.Logic.Controllers
         {
             if(ModelState.IsValid)
             {
-                repo.Add(CopyToModel(worker));
+                int id = repo.GetIdComapnyByName(worker.CompanyName);
+                repo.Add(CopyToModel(worker,id),id);
                 return RedirectToAction("GetAll");
             }
             else
@@ -95,7 +99,7 @@ namespace Qulix.Logic.Controllers
             }
         }
 
-        private WorkerViewModel CopyToViewModel(Worker worker)
+        private WorkerViewModel CopyToViewModel(Worker worker,string name)
         {
             return new WorkerViewModel()
             {
@@ -105,12 +109,13 @@ namespace Qulix.Logic.Controllers
                 Patronymic = worker.Patronymic,
                 DateRecruitment = worker.DateRecruitment,
                 Position = worker.Position,
+                CompanyName = name,
                 CompanyId = worker.CompanyId
             };
 
         }
 
-        private Worker CopyToModel(WorkerViewModel worker)
+        private Worker CopyToModel(WorkerViewModel worker, int id)
         {
             return new Worker()
             {
@@ -120,7 +125,7 @@ namespace Qulix.Logic.Controllers
                 Patronymic = worker.Patronymic,
                 DateRecruitment = worker.DateRecruitment,
                 Position = worker.Position,
-                CompanyId = worker.CompanyId
+                CompanyId = id
             };
 
         }

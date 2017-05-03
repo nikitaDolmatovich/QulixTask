@@ -9,7 +9,7 @@ namespace Qulix.Domain.Repository
     public interface IRepository<T> 
         where T:class
     {
-        void Add(T item);
+        void Add(T item, int id);
         void Delete(int itemId);
         void Update(int itemId, T item);
         void Execute(string expression);
