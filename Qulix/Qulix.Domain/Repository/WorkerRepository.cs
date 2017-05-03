@@ -67,6 +67,30 @@ namespace Qulix.Domain.Repository
             return workers;
         }
 
+        public Worker GetWorkerById(int workerId)
+        {
+            string expression = $"SELECT * FROM Worker WHERE WorkerId = {workerId}";
+
+            using (var sqlConnection = new SqlConnection(connectionString))
+            {
+                sqlConnection.Open();
+                var command = new SqlCommand(expression, sqlConnection);
+                SqlDataReader reader = command.ExecuteReader();
+                reader.Read();
+
+                return new Worker()
+                {
+                    WorkerId = (int)reader["WorkerId"],
+                    Name = (string)reader["Name"],
+                    Surname = (string)reader["Surname"],
+                    Patronymic = (string)reader["Patronymic"],
+                    DateRecruitment = (DateTime)reader["DateRecruitment"],
+                    Position = (string)reader["Position"],
+                    CompanyId = (int)reader["CompanyId"]
+                };
+            }
+        }
+
         public void Execute(string expression)
         {
             using (var sqlConnection = new SqlConnection(connectionString))
