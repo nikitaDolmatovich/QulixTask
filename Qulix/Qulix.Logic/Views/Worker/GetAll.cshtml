@@ -14,6 +14,8 @@
             <th>DateRecruitment</th>
             <th>Position</th>
             <th>Company Name</th>
+            <th>Delete</th>
+            <th>Edit</th>
         </tr>
     </thead>
     <tbody>
@@ -27,8 +29,20 @@
                 <td>@worker.DateRecruitment</td>
                 <td>@worker.Position</td>
                 <td>@worker.CompanyId</td>
+                <td>
+                    @using (Html.BeginForm("Delete", "Worker"))
+                    {
+                        @Html.Hidden("WorkerId", @worker.WorkerId)
+                        <input type="submit" class="btn btn-danger" value="Delete" />
+                    }
+                </td>
+                <td></td>
         </tr>
         }
     </tbody>
 </table>
+<div class="panel-footer">
+    @Html.ActionLink("Добавить работника", "Create", null,
+            new { @class = "btn btn-default" })
+</div>
 

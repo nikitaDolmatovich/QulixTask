@@ -32,6 +32,15 @@ namespace Qulix.Logic.Controllers
             return View(workers);
         }
 
+        [HttpPost]
+        public ActionResult Delete(int workerId)
+        {
+            repo.Delete(workerId);
+
+            return RedirectToAction("GetAll");
+        }
+
+
         private WorkerViewModel CopyToViewModel(Worker worker)
         {
             return new WorkerViewModel()
