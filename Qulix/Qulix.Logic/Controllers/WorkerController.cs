@@ -40,6 +40,27 @@ namespace Qulix.Logic.Controllers
             return RedirectToAction("GetAll");
         }
 
+        [HttpGet]
+        public ActionResult Update(int workerId)
+        {
+            WorkerViewModel worker = CopyToViewModel(repo.GetWorkerById(workerId));
+
+            return View(worker);
+        }
+
+        [HttpPost]
+        public ActionResult Update(Worker worker)
+        {
+            if(ModelState.IsValid)
+            {
+                repo.Update(worker.WorkerId, worker);
+                return RedirectToAction("GetAll");
+            }
+            else
+            {
+                return View(worker);
+            }
+        }
 
         private WorkerViewModel CopyToViewModel(Worker worker)
         {

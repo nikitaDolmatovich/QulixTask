@@ -33,8 +33,8 @@ namespace Qulix.Domain.Repository
 
         public void Update(int itemId, Worker item)
         {
-            string expression = $"UPDATE Worker SET Name = '{item.Name}', Surname = '{item.Surname}', '{item.Patronymic}'," +
-                $"'{item.DateRecruitment}', '{item.Position}','{item.CompanyId}' WHERE WorkerId = {item.WorkerId}";
+            string expression = $"UPDATE Worker SET Name = '{item.Name}', Surname = '{item.Surname}', Patronymic = '{item.Patronymic}'," +
+                $"DateRecruitment = '{item.DateRecruitment}', Position =  '{item.Position}',CompanyId = '{item.CompanyId}' WHERE WorkerId = {item.WorkerId}";
             Execute(expression);
         }
 
