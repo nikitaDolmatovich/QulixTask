@@ -14,17 +14,18 @@
             @Html.HiddenFor(m => m.CompanyId)
             @foreach (var property in ViewData.ModelMetadata.Properties)
             {
+                @Html.ValidationMessage(property.PropertyName)
                 if (property.PropertyName != "CompanyId")
                 {
                     if (property.PropertyName == "OrganizationalForm")
-                        {
-                            var selectList = new SelectList(
-                                   new List<SelectListItem>
-                                   {
+                    {
+                        var selectList = new SelectList(
+                               new List<SelectListItem>
+                               {
                                         new SelectListItem {Text = "OOO", Value = "OOO"},
                                         new SelectListItem {Text = "ЗАО", Value = "ЗАО"},
                                         new SelectListItem {Text =  "ОАО", Value="ОАО"}
-                                   }, "Value", "Text");
+                               }, "Value", "Text");
 
                         @Html.DropDownListFor(m => m.OrganizationalForm, selectList, "-----", new { @class = "form-control" })
                     }

@@ -23,7 +23,12 @@ namespace Qulix.Logic.Controllers
             companyRepo = new CompanyRepository(connectionString);
         }
 
-        public ActionResult GetAll()
+        public ActionResult MainPage()
+        {
+            return View();
+        }
+
+        public PartialViewResult GetAll()
         {
             List<WorkerViewModel> workers = new List<WorkerViewModel>();
 
@@ -33,7 +38,7 @@ namespace Qulix.Logic.Controllers
                 workers.Add(CopyToViewModel(worker,name));
             }
 
-            return View(workers);
+            return PartialView(workers);
         }
 
         [HttpPost]
@@ -119,7 +124,7 @@ namespace Qulix.Logic.Controllers
         {
             return new Worker()
             {
-                WorkerId = GetId() + 1,
+                WorkerId = GetId(),
                 Name = worker.Name,
                 Surname = worker.Surname,
                 Patronymic = worker.Patronymic,
@@ -132,22 +137,19 @@ namespace Qulix.Logic.Controllers
 
         private int GetId()
         {
-            List<WorkerViewModel> companies = new List<WorkerViewModel>();
-            int count = 0;
+            List<int> companies = new List<int>();
 
-            foreach (var worker in repo.GetAll())
+            foreach (var item in repo.GetAll())
             {
-                count++;
-                companies.Add(CopyToViewModel(worker,"Nik"));
-            }
+                companies.Add(item.CompanyId);
+            } 
 
-            if (count == 0)
+            if(companies.Count == 0)
             {
                 return 1;
             }
-            int id = companies.Select(x => x.CompanyId).Max();
 
-            return id;
+            return companies.Max();
         }
 
         public int GetComapnyId(string name)

@@ -14,6 +14,7 @@
             @Html.HiddenFor(m => m.WorkerId)
             @foreach (var property in ViewData.ModelMetadata.Properties)
             {
+                @Html.ValidationMessage(property.PropertyName)
                 if (property.PropertyName != "WorkerId")
                 {
                     <div class="form-group">

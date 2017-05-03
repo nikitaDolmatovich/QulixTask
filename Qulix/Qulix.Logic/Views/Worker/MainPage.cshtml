@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "MainPage";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Identifier</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Patronymic</th>
+            <th>DateRecruitment</th>
+            <th>Position</th>
+            <th>Company Name</th>
+            <th>Delete</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        @Html.Action("GetAll")
+    </tbody>
+</table>
+<div class="panel-footer">
+    @Html.ActionLink("Add worker", "Add", null,
+            new { @class = "btn btn-default" })
+</div>
+

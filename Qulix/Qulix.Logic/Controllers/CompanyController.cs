@@ -79,10 +79,9 @@ namespace Qulix.Logic.Controllers
             else
             {
                 return View(worker);
-            }
-          
+            }     
         }
-
+    
         private CompanyViewModel CopyToViewModel(Company company)
         {
             return new CompanyViewModel()

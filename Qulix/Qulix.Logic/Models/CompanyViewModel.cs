@@ -11,17 +11,18 @@ namespace Qulix.Logic.Models
     public class CompanyViewModel
     {
         [HiddenInput(DisplayValue = false)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key, Column(Order = 0)]
         public int CompanyId { get; set; }
 
         [Display(Name ="Name")]
+        [Required(ErrorMessage = "Please, enter Name")]
         public string Name { get; set; }
 
-        [Display(Name ="SizeCompany")]
+        [Display(Name ="Size of Company")]
+        [Required(ErrorMessage = "Please, enter size of company")]
         public string SizeCompany { get; set; }
 
-        [Display(Name = "OrganizationalForm ")]
+        [Display(Name = "Organizational Form ")]
+        [Required(ErrorMessage = "Please, enter Organizational Form")]
         public string OrganizationalForm { get; set; }
     }
 }
