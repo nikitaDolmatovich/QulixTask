@@ -62,9 +62,44 @@ namespace Qulix.Logic.Controllers
             }
         }
 
+        [HttpGet]
+        public ViewResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add(WorkerViewModel worker)
+        {
+            if(ModelState.IsValid)
+            {
+                repo.Add(CopyToModel(worker));
+                return RedirectToAction("GetAll");
+            }
+            else
+            {
+                return View(worker);
+            }
+        }
+
         private WorkerViewModel CopyToViewModel(Worker worker)
         {
             return new WorkerViewModel()
+            {
+                WorkerId = worker.WorkerId,
+                Name = worker.Name,
+                Surname = worker.Surname,
+                Patronymic = worker.Patronymic,
+                DateRecruitment = worker.DateRecruitment,
+                Position = worker.Position,
+                CompanyId = worker.CompanyId
+            };
+
+        }
+
+        private Worker CopyToModel(WorkerViewModel worker)
+        {
+            return new Worker()
             {
                 WorkerId = worker.WorkerId,
                 Name = worker.Name,

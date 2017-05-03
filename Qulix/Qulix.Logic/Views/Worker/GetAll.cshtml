@@ -36,13 +36,13 @@
                         <input type="submit" class="btn btn-danger" value="Delete" />
                     }
                 </td>
-                <td>@Html.ActionLink("Update", "Update", new { worker.WorkerId, @class= "btn btn-warning" })</td>
+                <td>@Html.ActionLink("Update", "Update", new { worker.WorkerId, @class= "btn btn-default" })</td>
         </tr>
         }
     </tbody>
 </table>
 <div class="panel-footer">
-    @Html.ActionLink("Добавить работника", "Create", null,
+    @Html.ActionLink("Добавить работника", "Add", null,
             new { @class = "btn btn-default" })
 </div>
 
