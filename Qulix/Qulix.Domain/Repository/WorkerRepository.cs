@@ -91,7 +91,8 @@ namespace Qulix.Domain.Repository
             }
         }
 
-        public int GetIdComapnyByName(string name)
+        //Get CompanyId acroos Name
+        public int GetIdCompanyByName(string name)
         {
             string expression = $"SELECT CompanyId FROM Company WHERE Name = {name}";
             int id = 0;
@@ -102,7 +103,7 @@ namespace Qulix.Domain.Repository
                 var command = new SqlCommand(expression, sqlCOnnection);
                 SqlDataReader reader = command.ExecuteReader();
 
-                while(reader.Read())
+                while (reader.Read())
                 {
                     id = (int)reader["CompanyId"];
                 }
@@ -111,7 +112,8 @@ namespace Qulix.Domain.Repository
             return id;
         }
 
-        public string GetNameComapnyById(int id)
+        //Get Name across id
+        public string GetNameCompanyById(int id)
         {
             string expression = $"SELECT Name FROM Company WHERE CompanyId = {id}";
             string name = null;

@@ -963,7 +963,6 @@
     <Content Include="Views\Worker\Add.cshtml" />
     <Content Include="Views\Company\Update.cshtml" />
     <Content Include="Views\Company\Add.cshtml" />
-    <Content Include="Views\Worker\MainPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

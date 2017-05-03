@@ -47,6 +47,11 @@
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\WorkerRepository.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Generate database.sql">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

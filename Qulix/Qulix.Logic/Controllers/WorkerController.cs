@@ -23,22 +23,17 @@ namespace Qulix.Logic.Controllers
             companyRepo = new CompanyRepository(connectionString);
         }
 
-        public ActionResult MainPage()
-        {
-            return View();
-        }
-
-        public PartialViewResult GetAll()
+        public ActionResult GetAll()
         {
             List<WorkerViewModel> workers = new List<WorkerViewModel>();
 
             foreach (var worker in repo.GetAll())
             {
-                string name = repo.GetNameComapnyById(worker.CompanyId);
+                string name = repo.GetNameCompanyById(worker.CompanyId);
                 workers.Add(CopyToViewModel(worker,name));
             }
 
-            return PartialView(workers);
+            return View(workers);
         }
 
         [HttpPost]
@@ -53,7 +48,7 @@ namespace Qulix.Logic.Controllers
         public ActionResult Update(int workerId)
         {
             Worker workers = repo.GetWorkerById(workerId);
-            string name = repo.GetNameComapnyById(workers.CompanyId);
+            string name = repo.GetNameCompanyById(workers.CompanyId);
             WorkerViewModel worker = CopyToViewModel(repo.GetWorkerById(workerId),name);
 
             return View(worker);
@@ -95,7 +90,7 @@ namespace Qulix.Logic.Controllers
             if(!ModelState.IsValid)
             {
                 string name = worker.CompanyName;
-                repo.Add(CopyToModel(worker,GetComapnyId(name)),GetComapnyId(name));
+                repo.Add(CopyToModel(worker,GetCompanyId(name)),GetCompanyId(name));
                 return RedirectToAction("GetAll");
             }
             else
@@ -149,10 +144,10 @@ namespace Qulix.Logic.Controllers
                 return 1;
             }
 
-            return companies.Max();
+            return companies.Max() + 1;
         }
 
-        public int GetComapnyId(string name)
+        private int GetCompanyId(string name)
         {
             List<Company> companies = new List<Company>();
 
@@ -167,7 +162,7 @@ namespace Qulix.Logic.Controllers
             return 0;
         }
 
-        public List<string> GetCompanies()
+        private List<string> GetCompanies()
         {
             List<string> companies = new List<string>();
 

@@ -1,23 +1,47 @@
 ﻿@model List<Qulix.Logic.Models.WorkerViewModel>
-
-@foreach (var worker in Model)
-{
-    <tr>
-        <td>@worker.WorkerId</td>
-        <td>@worker.Name</td>
-        <td>@worker.Surname</td>
-        <td>@worker.Patronymic</td>
-        <td>@worker.DateRecruitment</td>
-        <td>@worker.Position</td>
-        <td>@worker.CompanyName</td>
-        <td>
-            @using (Html.BeginForm("Delete", "Worker"))
-            {
-                @Html.Hidden("WorkerId", @worker.WorkerId)
-                <input type="submit" class="btn btn-danger" value="Delete" />
-            }
-        </td>
-        <td>@Html.ActionLink("Update", "Update", new { worker.WorkerId, @class = "btn btn-default" })</td>
-    </tr>
+@{
+    ViewBag.Title = "MainPage";
 }
 
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Identifier</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Patronymic</th>
+            <th>DateRecruitment</th>
+            <th>Position</th>
+            <th>Company Name</th>
+            <th>Delete</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var worker in Model)
+        {
+            <tr>
+                <td>@worker.WorkerId</td>
+                <td>@worker.Name</td>
+                <td>@worker.Surname</td>
+                <td>@worker.Patronymic</td>
+                <td>@worker.DateRecruitment</td>
+                <td>@worker.Position</td>
+                <td>@worker.CompanyName</td>
+                <td>
+                    @using (Html.BeginForm("Delete", "Worker"))
+                    {
+                        @Html.Hidden("WorkerId", @worker.WorkerId)
+                        <input type="submit" class="btn btn-danger" value="Delete" />
+                    }
+                </td>
+                <td>@Html.ActionLink("Update", "Update", new { worker.WorkerId, @class = "btn btn-default" })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="panel-footer">
+    @Html.ActionLink("Add worker", "Add", null,
+            new { @class = "btn btn-default" })
+    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index","Home")'">Main menu</button>
+</div>
