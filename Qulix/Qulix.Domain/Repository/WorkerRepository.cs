@@ -19,9 +19,9 @@ namespace Qulix.Domain.Repository
 
         public void Add(Worker item, int id)
         {
-            string expression = "INSERT INTO Worker(WorkerId, Name, Surname, Patronymic,DateRecruitment," +
+            string expression = "SET IDENTITY_INSERT dbo.Worker ON;INSERT INTO Worker(WorkerId, Name, Surname, Patronymic,DateRecruitment," +
                 "Position, CompanyId)VALUES" + $"('{item.WorkerId}', '{item.Name}','{item.Surname}','{item.Patronymic}'," +
-                $"'{item.DateRecruitment}', '{item.Position}', '{id}'";
+                $"'{item.DateRecruitment}', '{item.Position}', '{id}')";
             Execute(expression);
         }
 

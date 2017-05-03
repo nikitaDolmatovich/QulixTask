@@ -76,21 +76,21 @@ namespace Qulix.Logic.Controllers
             {
                 items.Add(new SelectListItem()
                 {
-                    Text = item.Name,
-                    Value = item.Name
+                    Text = item,
+                    Value = item
                 });
             }
             ViewBag.Companies = items;
-            return View(items);
+            return View();
         }
 
         [HttpPost]
         public ActionResult Add(WorkerViewModel worker)
         {
-            if(ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
-                int id = repo.GetIdComapnyByName(worker.CompanyName);
-                repo.Add(CopyToModel(worker,id),id);
+                string name = worker.CompanyName;
+                repo.Add(CopyToModel(worker,GetComapnyId(name)),GetComapnyId(name));
                 return RedirectToAction("GetAll");
             }
             else
@@ -119,7 +119,7 @@ namespace Qulix.Logic.Controllers
         {
             return new Worker()
             {
-                WorkerId = worker.WorkerId,
+                WorkerId = GetId() + 1,
                 Name = worker.Name,
                 Surname = worker.Surname,
                 Patronymic = worker.Patronymic,
@@ -130,13 +130,48 @@ namespace Qulix.Logic.Controllers
 
         }
 
-        public List<Company> GetCompanies()
+        private int GetId()
+        {
+            List<WorkerViewModel> companies = new List<WorkerViewModel>();
+            int count = 0;
+
+            foreach (var worker in repo.GetAll())
+            {
+                count++;
+                companies.Add(CopyToViewModel(worker,"Nik"));
+            }
+
+            if (count == 0)
+            {
+                return 1;
+            }
+            int id = companies.Select(x => x.CompanyId).Max();
+
+            return id;
+        }
+
+        public int GetComapnyId(string name)
         {
             List<Company> companies = new List<Company>();
 
             foreach(var item in companyRepo.GetAll())
             {
-                companies.Add(item);
+                if(item.Name == name)
+                {
+                    return item.CompanyId;
+                }
+            }
+
+            return 0;
+        }
+
+        public List<string> GetCompanies()
+        {
+            List<string> companies = new List<string>();
+
+            foreach (var item in companyRepo.GetAll())
+            {
+                companies.Add(item.Name);
             }
 
             return companies;

@@ -33,6 +33,5 @@ namespace Qulix.Logic.Models
         [HiddenInput(DisplayValue = false)]
         public int CompanyId { get; set; }
 
-        public CompanyViewModel Company { get; set; }
     }
 }

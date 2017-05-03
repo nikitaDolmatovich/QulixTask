@@ -33,9 +33,9 @@
                             
                                 @Html.DropDownListFor(m => m.Position, selectList, "", new { @class = "form-control" })
                         }
-                        else if(property.PropertyName == "CompanyName")
+                        else if (property.PropertyName == "CompanyName")
                         {
-                            @Html.DropDownListFor(m=>m.CompanyName,(IEnumerable<SelectListItem>)ViewBag.Companies, "", new { @class = "form-control" })
+                            @Html.DropDownListFor(m => m.CompanyName, (IEnumerable<SelectListItem>)ViewBag.Companies, "", new { @class = "form-control" })
                         }
                         else
                         {
