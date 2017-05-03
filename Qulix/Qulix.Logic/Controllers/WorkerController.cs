@@ -13,11 +13,13 @@ namespace Qulix.Logic.Controllers
     public class WorkerController : Controller
     {
         private WorkerRepository repo;
+        private CompanyRepository companyRepo;
 
         public WorkerController()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["WorkerManager"].ConnectionString;
             repo = new WorkerRepository(connectionString);
+            companyRepo = new CompanyRepository(connectionString);
         }
 
         public ActionResult GetAll()
@@ -65,6 +67,17 @@ namespace Qulix.Logic.Controllers
         [HttpGet]
         public ViewResult Add()
         {
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach(var item in GetCompanies())
+            {
+                items.Add(new SelectListItem()
+                {
+                    Text = item.Name,
+                    Value = item.Name
+                });
+            }
+
+            ViewBag.Companies = items;
             return View();
         }
 
@@ -110,6 +123,18 @@ namespace Qulix.Logic.Controllers
                 CompanyId = worker.CompanyId
             };
 
+        }
+
+        public List<Company> GetCompanies()
+        {
+            List<Company> companies = new List<Company>();
+
+            foreach(var item in companyRepo.GetAll())
+            {
+                companies.Add(item);
+            }
+
+            return companies;
         }
     }
 }

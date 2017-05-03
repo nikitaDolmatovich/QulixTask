@@ -40,7 +40,7 @@ namespace Qulix.Domain.Repository
         public IEnumerable<Company> GetAll()
         {
             List<Company> companies = new List<Company>();
-            string expression = "SELECT* FROM Company";
+            string expression = "SELECT * FROM Company";
 
             using (var sqlConnection = new SqlConnection(connectionString))
             {
@@ -54,7 +54,7 @@ namespace Qulix.Domain.Repository
                     {
                         CompanyId = (int)reader["CompanyId"],
                         Name = (string)reader["Name"],
-                        SizeCompany = (int)reader["SizeCompany"],
+                        SizeCompany = (string)reader["SizeCompany"],
                         OrganizationalForm = (string)reader["OrganizationalForm"]
                     });
                 }

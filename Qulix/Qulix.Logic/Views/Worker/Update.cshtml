@@ -18,10 +18,18 @@
                 {
                     <div class="form-group">
                         <label>@(property.DisplayName ?? property.PropertyName)</label>
-                        @if (property.PropertyName == "Description")
+                        @if (property.PropertyName == "Position")
                         {
-                            @Html.TextArea(property.PropertyName, null,
-                                new { @class = "form-control", rows = 5 })
+                            var selectList = new SelectList(
+                                   new List<SelectListItem>
+                                   {
+                                        new SelectListItem {Text = "Developer", Value = "Developer"},
+                                        new SelectListItem {Text = "QA", Value = "Qa"},
+                                        new SelectListItem {Text =  "Manager", Value="Manager"},
+                                        new SelectListItem {Text="Analyst", Value="Analyst" }
+                                   }, "Value", "Text");
+
+                            @Html.DropDownListFor(m => m.Position, selectList, "-----", new { @class = "form-control" })
                         }
                         else
                         {
